@@ -59,12 +59,18 @@ body{
 .movie-card h3, p{
   color: white;
 }
+.heading{
+  color: white;
+}
 #main{
   padding-top: 70px;
 }
 #err{
   padding-top: 250px;
   color: white;
+}
+.sub-content{
+  padding: 18px;
 }
 .wraper{
   overflow: hidden;
@@ -109,9 +115,13 @@ body{
   color: black;
 }
 .watch-btn{
-  background-color: orange;
+  background-color: #FF5200;
   color: white;
   padding: 6px;
+}
+.watch-btn:hover{
+  color: white;
+  background-color: #FF771B;
 }
 .nav-btn{
   height: 400px;

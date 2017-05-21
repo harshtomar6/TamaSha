@@ -1,4 +1,5 @@
 var http = require('http')
+var remote = require('electron').remote
 
 let data = {
   'err': null,
@@ -26,4 +27,35 @@ module.exports.getData = function(url, callback){
   req.on('error', function(e){
     data.err = e;
   })
+}
+
+module.exports.iframe = function(){
+  /*$("iframe").each(function () {
+          //Using closures to capture each one
+    var iframe = $(this);
+    console.log(iframe.contents())
+    iframe.on("load", function () {
+       //Make sure it is fully loaded
+      iframe.contents().click(function (event) {
+        iframe.trigger("click");
+      });
+    });
+
+    iframe.click(function () {
+              //Handle what you need it to do
+      console.log(remote.getCurrentWindow())
+    });
+  });*/
+
+  console.log($('#player').contents())
+
+  /*var frame = document.getElementById('player')
+  var d = frame.contentDocument
+  console.log(d)
+  d.addEventListener('DOMSubtreeModified', function () {
+		  console.log('changed');
+		  $('div[style]').one(function(){
+        console.log($(this));
+      })
+	}, false);*/
 }

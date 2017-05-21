@@ -23,7 +23,7 @@
 
   <div class="container-fluid" id="main">
     <div class="wraper"></div>
-    <div class="row"></div>
+    <div class="sub-content"></div>
   </div>
 
   <!--Search Modal-->
@@ -50,13 +50,13 @@
     $(document).ready(function(){
 
       if($(window).height() >= 620){
-        console.log('worked')
+        //console.log('worked')
         $('.player').css('height', '99%')
       }
 
       $(window).resize(function(){
         if($(window).height() >= 620){
-          console.log('worked')
+          //console.log('worked')
           $('.player').css('height', '99%')
         }
       })
@@ -75,7 +75,7 @@
           $('#loader-modal').modal('toggle')
           $('.back').append(`<i class="fa fa-arrow-left back-icon" onclick="goBack('search')"></i`)
           $('.bars').css('left','60px');
-          $('.player').remove()
+          $('#player').remove()
           if(!$('#main').length)
             $('body').append(`<div class="container" id="main">
               <div class="row"></div>

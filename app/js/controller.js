@@ -63,8 +63,9 @@ function playMovie(data){
     $('#similar-movies').remove();
     $("#mv-info").remove();
 
-    $('body').append(`<iframe src="http://`+data+`" allowfullscreen noborder width="100%" class="player"></iframe>`)
+    $('body').append(`<iframe src="http://`+data+`" allowfullscreen noborder width="100%" id="player"></iframe>`)
     //window.location.href = 'file://'+__dirname+'/play.html?q='+success.data;
+    core.iframe()
   })
 }
 
@@ -81,9 +82,11 @@ function goBack(data){
   }
 }
 
+var id;
+
 function appendMainData(data){
   $('title').text('TamaSha | Watch Movies Online')
-  var id = setInterval(function(){next()}, 6000);
+  id = setInterval(function(){next()}, 6000);
   for(var i=0;i<data.top_data.length;i++){
     $("#main .wraper").append(`
         <div class="slider-item" style="background:url('`+data.top_data[i].top_banner+`');background-size:cover;">
@@ -99,8 +102,26 @@ function appendMainData(data){
     `)
   }
   $('.wraper .slider-item:first-child').addClass('Visible')
-  for(var i=0;i<data.content.length;i++){
-    $('#main .row').append(`
+
+  $('#main .sub-content').append('<h3 class="heading">Recently Added</h3><br><div class="row r1"></div>')
+
+  for(var i=0;i<12;i++){
+    $('#main .r1').append(`
+      <div class="col-xs-6 col-md-2 col-sm-3">
+        <div class="movie-card" onclick="watchMovie('`+data.content[i].watch+`')">
+          <span class="movie-meta">`+data.content[i].meta+`</span>
+          <img class="img-responsive thumbnail" src="`+data.content[i].thumbnail+`">
+          <div class="title-wrap">
+            <span class="text-center movie-title">`+data.content[i].name+`</span>
+          </div>
+        </div>
+      </div>`
+    )
+  }
+
+  $('#main .sub-content').append('<br><h3 class="heading">Most Watched</h3><br><div class="row r2"></div>')
+  for(var i=12;i<24;i++){
+    $('#main .r2').append(`
       <div class="col-xs-6 col-md-2 col-sm-3">
         <div class="movie-card" onclick="watchMovie('`+data.content[i].watch+`')">
           <span class="movie-meta">`+data.content[i].meta+`</span>
@@ -199,13 +220,15 @@ function emptyBody(data){
       $('#similar-movies').remove();
       $('#main').empty()
       $('br').remove();
+      clearInterval(id);
       $('#main').append(`<div class="wraper"></div>
-      <div class="row"></div>`)
+      <div class="sub-content"></div>`)
       break;
     case 'search':
       $('.back-icon').remove()
       $('#main').empty();
-      $('#main').append('<div class="row"></div>')
+      $$('#main').append(`<div class="wraper"></div>
+      <div class="sub-content"></div>`)
       $('.bars').css('left', '15px')
       $('.container h3').remove()
   }
@@ -222,6 +245,7 @@ function next(){
     $('.slider-item:nth-child('+iterator+')').addClass('Visible')
   }
 }
+
 function prev(){
   if(iterator > 1){
     $('.slider-item:nth-child('+iterator+')').removeClass('Visible')
