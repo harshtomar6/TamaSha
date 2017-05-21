@@ -1,0 +1,11 @@
+{
+  "name": "TamaSha",
+  "version": "1.0.0",
+  "description": "An awesome movies app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "author": "harsh tomar",
+  "license": "ISC"
+}

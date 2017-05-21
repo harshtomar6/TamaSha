@@ -1,0 +1,99 @@
+<html>
+<head>
+  <meta charset="utf">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TamaSha | Watch Movies Online</title>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="stylesheets/style.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body style="margin-top: 0px">
+  <div class="back">
+    <i class="fa fa-bars bars" onclick="toggleSidebar()"></i>
+    <h3 class="text-center logo"> TamaSha</h3>
+    <i class="fa fa-search searchicon" data-toggle="modal" data-target="#search-modal"></i>
+  </div>
+
+  <div class="sidebar">
+    <a href="#">
+      <i class="fa fa-home"></i>
+    </a>
+  </div>
+
+  <div class="container-fluid" id="main">
+    <div class="wraper"></div>
+    <div class="row"></div>
+  </div>
+
+  <!--Search Modal-->
+  <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form><input type="text" class="form-control search-bar" placeholder="Search your favourite movie"></form>
+    </div>
+  </div>
+
+  <!--Loader Modal -->
+  <div class="modal fade" id="loader-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="js/controller.js"></script>
+  <script src="js/errorController.js"></script>
+  <script>
+    var core = require('.././renderer.js')
+
+    $(document).ready(function(){
+
+      if($(window).height() >= 620){
+        console.log('worked')
+        $('.player').css('height', '99%')
+      }
+
+      $(window).resize(function(){
+        if($(window).height() >= 620){
+          console.log('worked')
+          $('.player').css('height', '99%')
+        }
+      })
+
+      $('#loader-modal').modal({backdrop: 'static', keyboard: false, show: true})
+
+      loadMainData()
+
+      $('form').submit(function(e) {
+        var query = $('.search-bar').val();
+
+        $('#search-modal').modal('toggle')
+        $('#loader-modal').modal('toggle')
+
+        $.post('http://localhost:3000/search-movie', {'search': query}, function(success){
+          $('#loader-modal').modal('toggle')
+          $('.back').append(`<i class="fa fa-arrow-left back-icon" onclick="goBack('search')"></i`)
+          $('.bars').css('left','60px');
+          $('.player').remove()
+          if(!$('#main').length)
+            $('body').append(`<div class="container" id="main">
+              <div class="row"></div>
+            </div>`)
+          $('#main').empty();
+          $('.container').empty();
+          $('#main').removeClass('container-fluid').addClass('container');
+          $('#main').append('<h3 style="color: white">Search Results</h3>');
+          $('#main').append('<div class="row"></div>');
+
+          var data = success.body
+          appendSearchData(data)
+          //window.location.href = 'file://'+__dirname+'/search.html?data='+JSON.stringify(success.body);
+        });
+
+        e.preventDefault();
+      })
+    })
+  </script>
+</body>
+</html>

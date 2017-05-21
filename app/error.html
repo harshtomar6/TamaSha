@@ -1,0 +1,43 @@
+<html>
+<head>
+  <meta charset="utf">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TamaSha | Error</title>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="stylesheets/style.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body style="margin-top: 0px">
+  <div class="back">
+    <i class="fa fa-bars bars" onclick="toggleSidebar()"></i>
+    <h3 class="text-center logo"> TamaSha</h3>
+    <i class="fa fa-search searchicon" data-toggle="modal" data-target="#search-modal"></i>
+  </div>
+
+  <div class="sidebar">
+    <a href="#">
+      <i class="fa fa-home"></i>
+    </a>
+  </div>
+
+  <div class="container err">
+    <p class="text-center error-icon"><i class="fa fa-exclamation-triangle fa-fw fa-7x error-icon"></i></p>
+    <p class="text-center">An error occured<br><a class="text-center" href="">Try Again ?</a></p>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="js/controller.js"></script>
+  <script>
+
+    $(document).ready(function(){
+
+      var page = 'file://'+__dirname+window.location.search.split('=')[1]
+
+      $('a').attr('href', page)
+    })
+
+  </script>
+</body>
+</html>
