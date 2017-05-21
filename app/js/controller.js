@@ -4,9 +4,15 @@ let stack = {"main": null, "back": []};
 function toggleSidebar(){
   if($('.sidebar').width() == 0){
     $('.sidebar').width(250);
+    $('#main').css('margin-left', '250px')
+    $('.mv-info').css('margin-left', '250px')
+    $('#similar-movies').css('margin-left', '250px')
   }
   else {
     $('.sidebar').width(0);
+    $('#main').css('margin-left', '0')
+    $('.mv-info').css('margin-left', '0')
+    $('#similar-movies').css('margin-left', '0')
   }
 }
 
@@ -16,7 +22,7 @@ function loadMainData(){
     appendMainData(stack.main)
     console.log(stack.main)
   }else{
-    core.getData('http://139.59.66.232:3000/', function(data){
+    core.getData('http://localhost:3000/', function(data){
       //console.log(data)
       $('#loader-modal').modal('toggle')
       if(data.err === null){
@@ -32,7 +38,7 @@ function loadMainData(){
 
 function watchMovie(data){
   $('#loader-modal').modal('toggle')
-  $.post('http://139.59.66.232:3000/watch-movie', {"movie-url":data}, function(success){
+  $.post('http://localhost:3000/watch-movie', {"movie-url":data}, function(success){
     console.log(success)
     $(window).scrollTop(0)
     if(success.err === null){
@@ -53,7 +59,7 @@ function watchMovie(data){
 
 function playMovie(data){
   $('#loader-modal').modal('toggle')
-  $.post('http://139.59.66.232:3000/play-movie', {"movie-url":data}, function(success){
+  $.post('http://localhost:3000/play-movie', {"movie-url":data}, function(success){
     $('#loader-modal').modal('toggle')
     $('title').text('Watching... '+''+' - TamaSha')
     success = JSON.parse(success)
@@ -79,6 +85,7 @@ function goBack(data){
     case 'search':
       emptyBody('search')
       loadMainData()
+      break
   }
 }
 
@@ -151,7 +158,7 @@ function loadMovieData(data){
   </div>`);
   $('.container-fluid').after(`<br>
 
-  <div class="container" id="mv-info">
+  <div class="container-fluid mv-info" id="mv-info">
     <div class="movie-info">
       <div class="row">
         <div class="col-xs-2">
@@ -216,7 +223,7 @@ function emptyBody(data){
     case 'watch':
       $('.back-icon').remove()
       $('.bars').css('left', '15px')
-      $('.container').remove()
+      $('.mv-info').remove()
       $('#similar-movies').remove();
       $('#main').empty()
       $('br').remove();
@@ -230,7 +237,7 @@ function emptyBody(data){
       $$('#main').append(`<div class="wraper"></div>
       <div class="sub-content"></div>`)
       $('.bars').css('left', '15px')
-      $('.container h3').remove()
+      $('.mv-info h3').remove()
   }
 }
 var iterator = 1;

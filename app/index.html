@@ -71,18 +71,18 @@
         $('#search-modal').modal('toggle')
         $('#loader-modal').modal('toggle')
 
-        $.post('http://139.59.66.232:3000/search-movie', {'search': query}, function(success){
+        $.post('http://localhost:3000/search-movie', {'search': query}, function(success){
           $('#loader-modal').modal('toggle')
           $('.back').append(`<i class="fa fa-arrow-left back-icon" onclick="goBack('search')"></i`)
           $('.bars').css('left','60px');
           $('#player').remove()
           if(!$('#main').length)
-            $('body').append(`<div class="container" id="main">
+            $('body').append(`<div class="container-fluid mv-info" id="main">
               <div class="row"></div>
             </div>`)
           $('#main').empty();
           $('.container').empty();
-          $('#main').removeClass('container-fluid').addClass('container');
+          $('#main').addClass('mv-info');
           $('#main').append('<h3 style="color: white">Search Results</h3>');
           $('#main').append('<div class="row"></div>');
 

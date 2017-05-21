@@ -101,8 +101,8 @@ body{
       to { opacity: 1; }
 }
 .inner{
-  position: absolute;
-  top: 150px;
+  position: relative;
+  top: 120px;
   left: 80px;
   width: 350px;
   background: rgba(255, 255, 255, 0.7);
@@ -124,13 +124,14 @@ body{
   background-color: #FF771B;
 }
 .nav-btn{
-  height: 400px;
+  min-height: 520px;
   width: 60px;
   background-color: transparent;
   position: absolute;
   font-size: 48px;
   color: white;
   z-index: 1;
+  top: 30px;
 }
 .next-button{
   transition: background 0.5s;
@@ -285,6 +286,11 @@ html, body, iframe{
   width: 100%;
   cursor: pointer;
   max-height: 500px;
+}
+
+.mv-info{
+  padding-left: 75px;
+  padding-right: 75px;
 }
 
 .genre-item{
