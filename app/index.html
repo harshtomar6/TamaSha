@@ -71,7 +71,7 @@
         $('#search-modal').modal('toggle')
         $('#loader-modal').modal('toggle')
 
-        $.post('http://localhost:3000/search-movie', {'search': query}, function(success){
+        $.post('http://139.59.66.232:3000/search-movie', {'search': query}, function(success){
           $('#loader-modal').modal('toggle')
           $('.back').append(`<i class="fa fa-arrow-left back-icon" onclick="goBack('search')"></i`)
           $('.bars').css('left','60px');

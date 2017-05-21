@@ -16,7 +16,7 @@ function loadMainData(){
     appendMainData(stack.main)
     console.log(stack.main)
   }else{
-    core.getData('http://localhost:3000/', function(data){
+    core.getData('http://139.59.66.232:3000/', function(data){
       //console.log(data)
       $('#loader-modal').modal('toggle')
       if(data.err === null){
@@ -32,7 +32,7 @@ function loadMainData(){
 
 function watchMovie(data){
   $('#loader-modal').modal('toggle')
-  $.post('http://localhost:3000/watch-movie', {"movie-url":data}, function(success){
+  $.post('http://139.59.66.232:3000/watch-movie', {"movie-url":data}, function(success){
     console.log(success)
     $(window).scrollTop(0)
     if(success.err === null){
@@ -53,7 +53,7 @@ function watchMovie(data){
 
 function playMovie(data){
   $('#loader-modal').modal('toggle')
-  $.post('http://localhost:3000/play-movie', {"movie-url":data}, function(success){
+  $.post('http://139.59.66.232:3000/play-movie', {"movie-url":data}, function(success){
     $('#loader-modal').modal('toggle')
     $('title').text('Watching... '+''+' - TamaSha')
     success = JSON.parse(success)
@@ -83,7 +83,7 @@ function goBack(data){
 
 function appendMainData(data){
   $('title').text('TamaSha | Watch Movies Online')
-  var id = setInterval(function(){next()}, 3000);
+  var id = setInterval(function(){next()}, 6000);
   for(var i=0;i<data.top_data.length;i++){
     $("#main .wraper").append(`
         <div class="slider-item" style="background:url('`+data.top_data[i].top_banner+`');background-size:cover;">
@@ -195,7 +195,8 @@ function emptyBody(data){
     case 'watch':
       $('.back-icon').remove()
       $('.bars').css('left', '15px')
-      $('.container').remove();
+      $('.container').remove()
+      $('#similar-movies').remove();
       $('#main').empty()
       $('br').remove();
       $('#main').append(`<div class="wraper"></div>
