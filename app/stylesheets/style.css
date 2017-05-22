@@ -29,12 +29,24 @@ body{
   background-attachment: fixed;*/
   background: #283739;
 }
+.back{
+  position: fixed;
+  z-index: 3;
+  background-color: #2A363B;
+  padding-top: 0px;
+  width: 100%;
+  color: #ACE6C0;
+  font-size: 28px;
+  min-height: 60px;
+  /*box-shadow: 0 3px 20px rgba(0, 0, 0, 0.4);*/
+}
 .logo{
   color: #ACE6C0;
   font-family: 'Lobster';
   font-weight: bold;
   font-size: 28px;
 }
+
 .sidebar{
   z-index: 2;
   position: fixed;
@@ -47,15 +59,37 @@ body{
   overflow: hidden;
   padding-top: 70px;
 }
-.list{
+.sidebar ul{
   list-style-type: none;
-  padding: 0;
-  margin: 0;
+  padding:8px 0 8px 0;
+  width:100%;
 }
-.list-item{
-  list-style: none;
-  font-size: 22px;
+
+.sidebar ul li{
+  color: white;
+  padding: 12px 12px 12px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
+.sidebar ul li i{
+  margin-right: 20px;
+}
+.sidebar ul li .fa-caret-down{
+  margin-left: 70px;
+  margin-right: 0;
+}
+.sidebar ul li:hover{
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.sidebar ul .active{
+  color: black;
+  background: #ace6c0;
+}
+.sidebar ul .active:hover{
+  background-color: #ace6c0;
+}
+
 .movie-card h3, p{
   color: white;
 }
@@ -204,17 +238,7 @@ body{
   color: white;
 
 }
-.back{
-  position: fixed;
-  z-index: 3;
-  background-color: #2A363B;
-  padding-top: 0px;
-  width: 100%;
-  color: #127C56;
-  font-size: 28px;
-  min-height: 60px;
-}
-.fa{
+.icon{
   cursor: pointer;
   position: absolute;
 }
@@ -233,7 +257,7 @@ body{
 }
 .error-icon{
   color: lightgrey;
-
+  font-size: 42px;
 }
 #loader-modal{
     text-align: center;
@@ -256,7 +280,7 @@ body{
     left: 40%;
     top: 20%;
     z-index: 1000;
-    border: 4px solid #127C56;
+    border: 4px solid #ACE6C0;
     border-radius: 50%;
     border-top: 4px solid rgb(0, 0, 0);
     width: 80px;
@@ -280,6 +304,7 @@ html, body, iframe{
   margin: 0;
   border: 0px;
   padding: 0;
+  user-select: none;
 }
 
 .banner img{
@@ -313,7 +338,7 @@ html, body, iframe{
   padding: 6px;
 }
 .play-icon{
-  color: #127C56;
+  color: #ACE6C0;
   font-size: 120px;
   position: relative;
   z-index: 1;
@@ -326,4 +351,33 @@ html, body, iframe{
 }
 #similar-movies{
   padding: 50px;
+}
+
+.pagination ul{
+  list-style-type: none;
+}
+
+.pagination ul li{
+  margin: 10px;
+  padding: 8px;
+  border: 1px solid #ACE6C0;
+  color: white;
+  cursor: pointer;
+  display: inline;
+}
+
+.pagination ul li:hover{
+  background-color: #ACE6C0;
+  color: black;
+}
+
+.pagination ul .current{
+  background-color: #ACE6C0;
+  border: 1px solid #ACE6C0;
+  color: black;
+}
+
+.pagination ul .current:hover{
+  background-color: #ACE6C0;
+  color: black;
 }

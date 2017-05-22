@@ -10,15 +10,27 @@
 </head>
 <body style="margin-top: 0px">
   <div class="back">
-    <i class="fa fa-bars bars" onclick="toggleSidebar()"></i>
+    <i class="fa fa-bars icon bars" onclick="toggleSidebar()"></i>
     <h3 class="text-center logo"> TamaSha</h3>
-    <i class="fa fa-search searchicon" data-toggle="modal" data-target="#search-modal"></i>
+    <i class="fa fa-search icon searchicon" data-toggle="modal" data-target="#search-modal"></i>
   </div>
 
   <div class="sidebar">
-    <a href="#">
-      <i class="fa fa-home"></i>
-    </a>
+    <ul>
+    <li class="active" onclick="loadMainData()">
+      <i class="fa fa-home fa-fw"></i>   Home</li>
+    <li class="" onclick="sidebar.getAllMovies('http://localhost:3000/all-movies', 0)">
+      <i class="fa fa-film fa-fw"></i>   All Movies</li>
+    <li class="" onclick="sidebar.getTv('http://localhost:3000/tv', 0)">
+      <i class="fa fa-television fa-fw"></i>  TV Series</li>
+    <li class="" onclick="showAllTv()">
+      <i class="fa fa-imdb fa-fw"></i>  Top IMDB</li>
+    <li class="" onclick="showAllTv()">
+      <i class="fa fa-tags fa-fw"></i>  Genre
+      <i class="fa fa-caret-down fa-fw"></i>
+    </li>
+
+    </ul>
   </div>
 
   <div class="container-fluid" id="main">
@@ -44,6 +56,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="js/controller.js"></script>
   <script src="js/errorController.js"></script>
+  <script src="js/sidebarController.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/backController.js"></script>
+  <script src="js/pageController.js"></script>
   <script>
     var core = require('.././renderer.js')
 
@@ -61,8 +77,6 @@
         }
       })
 
-      $('#loader-modal').modal({backdrop: 'static', keyboard: false, show: true})
-
       loadMainData()
 
       $('form').submit(function(e) {
@@ -73,22 +87,19 @@
 
         $.post('http://localhost:3000/search-movie', {'search': query}, function(success){
           $('#loader-modal').modal('toggle')
-          $('.back').append(`<i class="fa fa-arrow-left back-icon" onclick="goBack('search')"></i`)
+          $('.back').append(`<i class="fa fa-arrow-left icon back-icon" onclick="goBack('search')"></i`)
           $('.bars').css('left','60px');
-          $('#player').remove()
-          if(!$('#main').length)
-            $('body').append(`<div class="container-fluid mv-info" id="main">
-              <div class="row"></div>
-            </div>`)
-          $('#main').empty();
-          $('.container').empty();
-          $('#main').addClass('mv-info');
-          $('#main').append('<h3 style="color: white">Search Results</h3>');
-          $('#main').append('<div class="row"></div>');
-
+          remove()
+          $('body').append(`<div class="container-fluid mv-info" id="main">
+                <h3 style="color: white">Search Results for "`+query+`"</h3>
+               <div class="row"></div>
+             </div>`)
           var data = success.body
+          stack.data.push(data)
+          stack.method.push('searchMovie')
           appendSearchData(data)
-          //window.location.href = 'file://'+__dirname+'/search.html?data='+JSON.stringify(success.body);
+          sidebar.checkVisible()
+            //window.location.href = 'file://'+__dirname+'/search.html?data='+JSON.stringify(success.body);
         });
 
         e.preventDefault();
