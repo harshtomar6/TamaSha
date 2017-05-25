@@ -7,7 +7,20 @@ var sliderComponent = function(data, i){
     </div>
     <button type="button" class="btn nav-btn next-button" onclick="next()"><i class="fa fa-chevron-right fa-fw"></i></button>
     <button type="button" class="btn nav-btn back-button" onclick="prev()"><i class="fa fa-chevron-left fa-fw"></i></button>
-
+    <div class="below">
+      <p class="text-center">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </p>
+    </div>
   </div>`
 }
 
@@ -18,16 +31,16 @@ var headingComponent = function(data, clas){
 var tabComponent = function(){
   return `
     <div class="row tab-list">
-      <div class="col-xs-3">
+      <div class="col-xs-3 tab active">
         <h4 class="text-center">Recommended</h4>
       </div>
-      <div class="col-xs-3">
+      <div class="col-xs-3 tab">
         <h4 class="text-center">Recently Added</h4>
       </div>
-      <div class="col-xs-3">
+      <div class="col-xs-3 tab">
         <h4 class="text-center">Most Watched</h4>
       </div>
-      <div class="col-xs-3">
+      <div class="col-xs-3 tab">
         <h4 class="text-center">Requested</h4>
       </div>
     </div>
@@ -40,9 +53,9 @@ var rowComponent = function(data, i){
       <div class="movie-card" onclick="watchMovie('`+data.content[i].watch+`')">
         <span class="movie-meta">`+data.content[i].meta+`</span>
         <img class="img-responsive thumbnail" src="`+data.content[i].thumbnail+`">
-        <div class="title-wrap">
+        <!--<div class="title-wrap">
           <span class="text-center movie-title">`+data.content[i].name+`</span>
-        </div>
+        </div>-->
       </div>
     </div>`
 }

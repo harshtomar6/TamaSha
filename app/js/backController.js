@@ -17,9 +17,10 @@ var appendFunction = {
     $('#loader-modal').modal('toggle')
     $('body').append(`<div class="container-fluid" id="main">
       <div class="wraper"></div>
+      <div class="navigation"></div>
       <div class="sub-content"></div>
     </div>`)
-    appendMainData(stack.main)
+    appendMainData(data)
     sidebar.checkVisible()
   },
   watchMovie: function(data){

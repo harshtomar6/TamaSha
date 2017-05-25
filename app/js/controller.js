@@ -13,10 +13,10 @@ function loadMainData(){
   if(stack.main.home){
     $('#loader-modal').modal('toggle')
     remove()
-    $('body').append(`
+    $('.sidebar').after(`
       <div class="container-fluid" id="main">
         <div class="wraper"></div>
-        <div class="navigation" data-spy="affix" data-offset-top="502"></div>
+        <div class="navigation"></div>
         <div class="sub-content"></div>
       </div>
     `)
@@ -92,15 +92,9 @@ function appendMainData(data){
   }
   $('.wraper .slider-item:first-child').addClass('Visible')
   $('#main .navigation').append(tabComponent());
-  $('#main .sub-content').append(headingComponent('Recently Added', 'r1'))
-
-  for(var i=0;i<12;i++){
-    $('#main .r1').append(rowComponent(data, i))
-  }
-
-  $('#main .sub-content').append('<br>'+headingComponent('Most Watched', 'r2'))
-  for(var i=12;i<24;i++){
-    $('#main .r2').append(rowComponent(data, i))
+  $('#main .sub-content').append('<div class="row"></div>')
+  for(var i=0;i<24;i++){
+    $('#main .sub-content .row').append(rowComponent(data, i))
   }
 }
 
@@ -137,23 +131,31 @@ function remove(){
 function next(){
   if(iterator < 10){
     $('.slider-item:nth-child('+iterator+')').removeClass('Visible')
+    $('.below p span:nth-child('+iterator+')').removeClass('active')
     iterator++;
     $('.slider-item:nth-child('+iterator+')').addClass('Visible')
+    $('.below p span:nth-child('+iterator+')').addClass('active')
   }else{
     $('.slider-item:nth-child('+iterator+')').removeClass('Visible')
+    $('.below p span:nth-child('+iterator+')').removeClass('active')
     iterator=1;
     $('.slider-item:nth-child('+iterator+')').addClass('Visible')
+    $('.below p span:nth-child('+iterator+')').addClass('active')
   }
 }
 
 function prev(){
   if(iterator > 1){
     $('.slider-item:nth-child('+iterator+')').removeClass('Visible')
+    $('.below p span:nth-child('+iterator+')').removeClass('active')
     iterator--;
     $('.slider-item:nth-child('+iterator+')').addClass('Visible')
+    $('.below p span:nth-child('+iterator+')').addClass('active')
   }else{
     $('.slider-item:nth-child('+iterator+')').removeClass('Visible')
+    $('.below p span:nth-child('+iterator+')').removeClass('active')
     iterator=10;
     $('.slider-item:nth-child('+iterator+')').addClass('Visible')
+    $('.below p span:nth-child('+iterator+')').addClass('active')
   }
 }
