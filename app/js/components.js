@@ -15,6 +15,25 @@ var headingComponent = function(data, clas){
   return '<h3 class="heading">'+data+'</h3><br><div class="row '+clas+'"></div>'
 }
 
+var tabComponent = function(){
+  return `
+    <div class="row tab-list">
+      <div class="col-xs-3">
+        <h4 class="text-center">Recommended</h4>
+      </div>
+      <div class="col-xs-3">
+        <h4 class="text-center">Recently Added</h4>
+      </div>
+      <div class="col-xs-3">
+        <h4 class="text-center">Most Watched</h4>
+      </div>
+      <div class="col-xs-3">
+        <h4 class="text-center">Requested</h4>
+      </div>
+    </div>
+  `
+}
+
 var rowComponent = function(data, i){
   return `
     <div class="col-xs-6 col-md-2 col-sm-3">
@@ -29,9 +48,8 @@ var rowComponent = function(data, i){
 }
 
 var bannerComponent = function(data){
-  return `<div class="banner">
-    <p class="play-link" onclick="playMovie('`+data[0]['play-link']+`')"><img class="img-responsive" src="`+data[0]['movie-banner']+`"></a></p>
-    <p class="text-center play-icon"><i class="fa icon fa-play-circle"></i></p>
+  return `<div class="banner" style="background: url('`+data.content[0]['movie-banner']+`');background-size:cover;">
+    <p class="text-center play-icon" onclick="playMovie('`+data.content[0]['play-link']+`')"><i class="fa fa-play-circle"></i></p>
   </div>`
 }
 
@@ -42,39 +60,49 @@ var movieInfoComponent = function(data){
     <div class="movie-info">
       <div class="row">
         <div class="col-xs-2">
-          <img class="img-responsive thumb" src="`+data[0].meta.thumb+`">
+          <img class="img-responsive thumb" src="`+data.content[0].meta.thumb+`"><br><br>
         </div>
         <div class="col-xs-10">
-          <h2 class="mv-title">`+data[0]['movie-title']+`</h2>
+          <h2 class="mv-title">`+data.content[0]['movie-title']+`</h2>
           <br>
-          <p>`+data[0]['movie-des']+`</p><br>
+          <p>`+data.content[0]['movie-des']+`</p><br>
           <div class="col-xs-6">
-            <span>Director :  `+data[0].meta.director+`</span><br>
-            <span>Country :  `+data[0].meta.country+`</span><br>
+            <span>Director :  `+data.content[0].meta.director+`</span><br>
+            <span>Country :  `+data.content[0].meta.country+`</span><br>
             <span class="genre-contain">Genre :  </span><br>
             </div>
           <div class="col-xs-6">
-            Quality :  <span class="quality">`+data[0].meta.quality+`</span><br><br>
-            <span class="imdb">IMDB :  `+data[0].meta.imdb+`</span><br><br>
+            Quality :  <span class="quality">`+data.content[0].meta.quality+`</span><br><br>
+            <span class="imdb">IMDB :  `+data.content[0].meta.imdb+`</span><br><br>
+          </div><br>
+          <div class="episodes-info">
           </div>
         </div>
       </div>
     </div><br>
-  </div><br><
+  </div><br>
   <div class="container-fluid" id="similar-movies">
     <h3 style="color: white;">You may also like </h3>
     <div class="row"></div>
   </div>`;
 }
 
+var episodeInfoComponent = function(data, i){
+  return `
+    <button type="button" class="btn episode-btn" onclick="playMovie('`+data.episodes[i].links+`')">`+
+      data.episodes[i].episodes
+    +`</button>
+  `
+}
+
 var similarMoviesComponent = function(data, i){
   return `
     <div class="col-xs-6 col-md-2 col-sm-3">
-      <div class="movie-card" onclick="watchMovie('`+data[0]['similar-movies'][i].watch+`')">
-        <span class="movie-meta">`+data[0]['similar-movies'][i].meta+`</span>
-        <img class="img-responsive thumbnail" src="`+data[0]['similar-movies'][i].thumbnail+`">
+      <div class="movie-card" onclick="watchMovie('`+data.content[0]['similar-movies'][i].watch+`')">
+        <span class="movie-meta">`+data.content[0]['similar-movies'][i].meta+`</span>
+        <img class="img-responsive thumbnail" src="`+data.content[0]['similar-movies'][i].thumbnail+`">
         <div class="title-wrap">
-          <span class="text-center movie-title">`+data[0]['similar-movies'][i].name+`</span>
+          <span class="text-center movie-title">`+data.content[0]['similar-movies'][i].name+`</span>
         </div>
       </div>
     </div>`

@@ -8,6 +8,7 @@ function goBack(){
   stack.data.splice(stack.data.length-2, 1)
   $('.sidebar ul li').removeClass('active')
   $('.sidebar ul li:first-child').addClass('active')
+  sidebar.checkVisible()
 }
 
 var appendFunction = {

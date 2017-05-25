@@ -72,7 +72,38 @@ var sidebar = {
         sidebar.checkVisible()
       })
     }
-  }
+  },
+
+  getImdb: function(url, sw){
+    $('#loader-modal').modal('toggle')
+    $(window).scrollTop(0)
+    if(stack.main.tv && sw==0){
+      $('#loader-modal').modal('toggle')
+      remove()
+      $('body').append(`<div class="container-fluid mv-info" id="main">
+            <h3 style="color: white">Top IMDB</h3>
+           <div class="row"></div><br>
+           <div class="pagination"></div>
+      </div>`)
+      appendSearchData(stack.main.tv)
+      $('.pagination').append(paginationComponent)
+      this.checkVisible()
+    }else{
+      $.get(url, function(success){
+        $('#loader-modal').modal('toggle')
+        remove()
+        $('body').append(`<div class="container-fluid mv-info" id="main">
+              <h3 style="color: white">Top IMDB</h3>
+             <div class="row"></div><br>
+             <div class="pagination"></div>
+           </div>`)
+        stack.main.tv = success.body
+        appendSearchData(success.body)
+        $('.pagination').append(paginationComponent)
+        sidebar.checkVisible()
+      })
+    }
+  },
 }
 
 function toggleSidebar(){

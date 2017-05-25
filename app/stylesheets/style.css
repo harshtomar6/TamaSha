@@ -89,6 +89,28 @@ body{
 .sidebar ul .active:hover{
   background-color: #ace6c0;
 }
+.affix {
+  top: 60px;
+  width: 100%;
+  z-index: 2;
+ }
+.navigation{
+  background-color: #ACE6C0;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.tab-list{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tab{
+  display: inline-block;
+  padding: 2px 80px 2px 80px;
+  font-weight: bold;
+  font-size: 16px;
+}
 
 .movie-card h3, p{
   color: white;
@@ -299,18 +321,21 @@ body{
     100% { transform: rotate(360deg); }
 }
 
-html, body, iframe{
-  height: 96.5%;
+html, body{
+  height: 100%;
   margin: 0;
   border: 0px;
   padding: 0;
   user-select: none;
 }
 
-.banner img{
-  width: 100%;
-  cursor: pointer;
-  max-height: 500px;
+iframe{
+  height: 100%;
+  border: 0px;
+}
+
+.banner{
+  height: 500px;
 }
 
 .mv-info{
@@ -318,11 +343,12 @@ html, body, iframe{
   padding-right: 75px;
 }
 
-.genre-item{
+span.genre-item{
   background-color: #127C56;
   padding: 6px;
   border-radius: 10px;
   font-size: 12px;
+  margin: 10px 4px 10px 4px;
 }
 
 .imdb{
@@ -337,16 +363,18 @@ html, body, iframe{
   font-weight: bold;
   padding: 6px;
 }
+.episode-btn{
+  background-color: #127C56;
+  margin: 8px;
+}
 .play-icon{
   color: #ACE6C0;
   font-size: 120px;
-  position: relative;
-  z-index: 1;
-  left: -30px;
-  top: -300px;
-  box-shadow: 0 0 10px rgba(0, 0, 0.7)
+  box-shadow: 0 0 10px rgba(0, 0, 0.7);
 }
 .play-icon i{
+  cursor: pointer;
+  margin-top: 150px;
   box-shadow: 0 0 10px rgba(0, 0, 0.7)
 }
 #similar-movies{

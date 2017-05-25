@@ -8,6 +8,7 @@ var iterator = 1, id;
 
 function loadMainData(){
   clearInterval(id)
+  $(window).scrollTop(0)
   $('#loader-modal').modal({backdrop: 'static', keyboard: false, show: true})
   if(stack.main.home){
     $('#loader-modal').modal('toggle')
@@ -15,6 +16,7 @@ function loadMainData(){
     $('body').append(`
       <div class="container-fluid" id="main">
         <div class="wraper"></div>
+        <div class="navigation" data-spy="affix" data-offset-top="502"></div>
         <div class="sub-content"></div>
       </div>
     `)
@@ -49,10 +51,11 @@ function watchMovie(data){
       var data = success.body
       stack.data.push(data)
       stack.method.push('watchMovie')
+      console.log(data)
       loadMovieData(data)
-      for(var i=0;i<data[0].meta.genre.length;i++)
+      for(var i=0;i<data.content[0].meta.genre.length;i++)
       $('.genre-contain').append(`
-        <span class="genre-item">`+data[0].meta.genre[i]+`</span>
+        <span class="genre-item">`+data.content[0].meta.genre[i]+`</span>
       `)
       sidebar.checkVisible()
     }
@@ -88,7 +91,7 @@ function appendMainData(data){
     $("#main .wraper").append(sliderComponent(data, i))
   }
   $('.wraper .slider-item:first-child').addClass('Visible')
-
+  $('#main .navigation').append(tabComponent());
   $('#main .sub-content').append(headingComponent('Recently Added', 'r1'))
 
   for(var i=0;i<12;i++){
@@ -102,7 +105,7 @@ function appendMainData(data){
 }
 
 function loadMovieData(data){
-  $('title').text('Watch '+data[0]['movie-title']+' - TamaSha')
+  $('title').text('Watch '+data.content[0]['movie-title']+' - TamaSha')
   $('.back').append(`<i class="fa fa-arrow-left icon back-icon" onclick="goBack('main')"></i`)
   $('.bars').css('left','60px');
   $('br').remove()
@@ -111,7 +114,10 @@ function loadMovieData(data){
   $('#main').append(bannerComponent(data));
   $('.container-fluid').after(movieInfoComponent(data))
 
-  for(var i=0;i<data[0]['similar-movies'].length;i++){
+  for(var i=0;i<data.episodes.length;i++)
+    $('.episodes-info').append(episodeInfoComponent(data, i))
+
+  for(var i=0;i<data.content[0]['similar-movies'].length;i++){
     $('#similar-movies .row').append(similarMoviesComponent(data, i))
   }
 }
