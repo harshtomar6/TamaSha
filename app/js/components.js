@@ -47,17 +47,57 @@ var tabComponent = function(){
   `
 }
 
-var rowComponent = function(data, i){
+var allTabComponent = function(){
   return `
-    <div class="col-xs-6 col-md-2 col-sm-3">
-      <div class="movie-card" onclick="watchMovie('`+data.content[i].watch+`')">
-        <span class="movie-meta">`+data.content[i].meta+`</span>
-        <img class="img-responsive thumbnail" src="`+data.content[i].thumbnail+`">
-        <!--<div class="title-wrap">
-          <span class="text-center movie-title">`+data.content[i].name+`</span>
-        </div>-->
-      </div>
-    </div>`
+  <div class="row tab-list">
+    <div class="col-xs-4 tab active">
+      <h4 class="text-center">HD Movies</h4>
+    </div>
+    <div class="col-xs-4 tab">
+      <h4 class="text-center">SD Movies</h4>
+    </div>
+    <div class="col-xs-4 tab">
+      <h4 class="text-center">CAM Movies</h4>
+    </div>
+  </div>
+  `
+}
+
+var rowComponent = function(data, i){
+  var len = data.content[i].name.length;
+
+  if(len <= 18)
+    return `
+      <div class="col-xs-6 col-md-2 col-sm-3 wrap">
+        <div class="movie-card" onclick="watchMovie('`+data.content[i].watch+`')">
+          <div class="thumb-div">
+            <img class="img-responsive thumb" src="`+data.content[i].thumbnail+`">
+          </div>
+          <div class="meta">
+            <h5>`+data.content[i].name+`</h5>
+            <span>`+data.content[i].meta.episode+`</span>
+            <span>2017</span>
+          </div>
+
+        </div>
+      </div>`
+    else{
+      var name = data.content[i].name.substr(0, 15)+'...';
+
+      return `
+        <div class="col-xs-6 col-md-2 col-sm-3 wrap">
+          <div class="movie-card" onclick="watchMovie('`+data.content[i].watch+`')">
+            <div class="thumb-div">
+              <img class="img-responsive thumb" src="`+data.content[i].thumbnail+`">
+            </div>
+            <div class="meta">
+              <h5>`+name+`</h5>
+              <span>`+data.content[i].meta.episode+`</span>
+              <span>2017</span>
+            </div>
+          </div>
+        </div>`
+    }
 }
 
 var bannerComponent = function(data){
@@ -83,7 +123,8 @@ var movieInfoComponent = function(data){
             <span>Director :  `+data.content[0].meta.director+`</span><br>
             <span>Country :  `+data.content[0].meta.country+`</span><br>
             <span class="genre-contain">Genre :  </span><br>
-            </div>
+            <span>Release : `+getDate(data.content[0].meta.release)+`</span>
+          </div>
           <div class="col-xs-6">
             Quality :  <span class="quality">`+data.content[0].meta.quality+`</span><br><br>
             <span class="imdb">IMDB :  `+data.content[0].meta.imdb+`</span><br><br>
@@ -109,29 +150,76 @@ var episodeInfoComponent = function(data, i){
 }
 
 var similarMoviesComponent = function(data, i){
-  return `
-    <div class="col-xs-6 col-md-2 col-sm-3">
-      <div class="movie-card" onclick="watchMovie('`+data.content[0]['similar-movies'][i].watch+`')">
-        <span class="movie-meta">`+data.content[0]['similar-movies'][i].meta+`</span>
-        <img class="img-responsive thumbnail" src="`+data.content[0]['similar-movies'][i].thumbnail+`">
-        <div class="title-wrap">
-          <span class="text-center movie-title">`+data.content[0]['similar-movies'][i].name+`</span>
+  var len = data.content[0]['similar-movies'][i].name.length;
+
+  if(len <= 18)
+    return `
+      <div class="col-xs-6 col-md-2 col-sm-3 wrap">
+        <div class="movie-card" onclick="watchMovie('`+data.content[0]['similar-movies'][i].watch+`')">
+          <div class="thumb-div">
+            <img class="img-responsive thumb" src="`+data.content[0]['similar-movies'][i].thumbnail+`">
+          </div>
+          <div class="meta">
+            <h5>`+data.content[0]['similar-movies'][i].name+`</h5>
+            <span>`+data.content[0]['similar-movies'][i].meta.episode+`</span>
+            <span>2017</span>
+          </div>
         </div>
-      </div>
-    </div>`
+      </div>`
+    else{
+      var name = data.content[0]['similar-movies'][i].name.substr(0, 15)+'...';
+
+      return `
+        <div class="col-xs-6 col-md-2 col-sm-3 wrap">
+          <div class="movie-card" onclick="watchMovie('`+data.content[0]['similar-movies'][i].watch+`')">
+            <div class="thumb-div">
+              <img class="img-responsive thumb" src="`+data.content[0]['similar-movies'][i].thumbnail+`">
+            </div>
+            <div class="meta">
+              <h5>`+name+`</h5>
+              <span>`+data.content[0]['similar-movies'][i].meta.episode+`</span>
+              <span>2017</span>
+            </div>
+          </div>
+        </div>`
+    }
 }
 
 var searchRowComponent = function(data, i){
-  return `
-    <div class="col-xs-6 col-md-2 col-sm-3">
-      <div class="movie-card" onclick="watchMovie('`+data[i].watch+`')">
-        <span class="movie-meta">`+data[i].meta+`</span>
-        <img class="img-responsive thumbnail" src="`+data[i].thumbnail+`">
-        <div class="title-wrap">
-          <span class="text-center movie-title">`+data[i].name+`</span>
+  var len = data[i].name.length;
+
+  if(len <= 18)
+    return `
+      <div class="col-xs-6 col-md-2 col-sm-3 wrap">
+        <div class="movie-card" onclick="watchMovie('`+data[i].watch+`')">
+          <!--<span class="movie-meta">`+data[i].meta+`</span>-->
+          <div class="thumb-div">
+            <img class="img-responsive thumb" src="`+data[i].thumbnail+`">
+          </div>
+          <div class="meta">
+            <h5>`+data[i].name+`</h5>
+            <span>`+data[i].meta+`</span>
+            <span>2017</span>
+          </div>
         </div>
-      </div>
-    </div>`
+      </div>`
+    else{
+      var name = data[i].name.substr(0, 15)+'...';
+
+      return `
+        <div class="col-xs-6 col-md-2 col-sm-3 wrap">
+          <div class="movie-card" onclick="watchMovie('`+data[i].watch+`')">
+            <div class="thumb-div">
+              <img class="img-responsive thumb" src="`+data[i].thumbnail+`">
+            </div>
+            <div class="meta">
+              <h5>`+name+`</h5>
+              <span>`+data[i].meta+`</span>
+              <span>2017</span>
+            </div>
+          </div>
+        </div>`
+    }
 }
 
 var paginationComponent = function(){

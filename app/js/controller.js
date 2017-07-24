@@ -77,7 +77,9 @@ function playMovie(data){
     stack.method.push('play')
     remove()
 
-    $('body').append(`<iframe src="http://`+data+`" allowfullscreen noborder width="100%" id="player"></iframe>`)
+    $('body').append(`<div class="container-fluid" style="padding: 0">
+        <iframe src="http://`+data+`" allowfullscreen noborder width="100%" id="player"></iframe>
+      </div>`)
     //window.location.href = 'file://'+__dirname+'/play.html?q='+success.data;
     core.iframe()
     sidebar.checkVisible()
@@ -86,16 +88,20 @@ function playMovie(data){
 
 function appendMainData(data){
   $('title').text('TamaSha | Watch Movies Online')
+  iterator=1;
   id = setInterval(function(){next()}, 6000);
   for(var i=0;i<data.top_data.length;i++){
     $("#main .wraper").append(sliderComponent(data, i))
   }
+  $('.wraper .slider-item').removeClass('Visible')
   $('.wraper .slider-item:first-child').addClass('Visible')
   $('#main .navigation').append(tabComponent());
   $('#main .sub-content').append('<div class="row"></div>')
   for(var i=0;i<24;i++){
     $('#main .sub-content .row').append(rowComponent(data, i))
   }
+  var len = $('.meta h5').text().length
+  console.log("len = "+len);
 }
 
 function loadMovieData(data){
@@ -119,6 +125,12 @@ function loadMovieData(data){
 function appendSearchData(data){
   for(var i=0;i<data.length;i++){
     $('#main .row').append(searchRowComponent(data, i))
+  }
+}
+
+function appendSideBarData(data){
+  for(var i=0;i<data.length;i++){
+    $('#main .sub .row').append(searchRowComponent(data, i))
   }
 }
 
@@ -158,4 +170,52 @@ function prev(){
     $('.slider-item:nth-child('+iterator+')').addClass('Visible')
     $('.below p span:nth-child('+iterator+')').addClass('active')
   }
+}
+
+function getDate(date){
+  date = date.split('-');
+  var num = date[1]
+
+  var month = "";
+
+  switch(num){
+    case '01':
+      month = 'Jan';
+      break;
+    case '02':
+      month = 'Feb';
+      break;
+    case '03':
+      month = 'March';
+      break;
+    case '04':
+      month = 'April';
+      break;
+    case '05':
+      month = 'May';
+      break;
+    case '06':
+      month = 'June';
+      break;
+    case '07':
+      month = 'July';
+      break;
+    case '08':
+      month = 'Aug';
+      break;
+    case '09':
+      month = 'Sep';
+      break;
+    case '10':
+      month = 'Oct';
+      break;
+    case '11':
+      month = 'Nov';
+      break;
+    case '12':
+      month = 'Dec';
+      break;
+  }
+
+  return date[2] + " "+month+" "+date[0];
 }
